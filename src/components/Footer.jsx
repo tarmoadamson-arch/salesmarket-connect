@@ -26,28 +26,28 @@ const Footer = () => {
             <h4 className="footer-heading">For Clients</h4>
             <ul>
               <li><Link to="/marketplace">Browse Sales Pros</Link></li>
-              <li><Link to="#">Post a Project</Link></li>
-              <li><Link to="#">How it Works</Link></li>
-              <li><Link to="#">Success Stories</Link></li>
+              <li><Link to="/post-project">Post a Project</Link></li>
+              <li><Link to="/how-it-works">How it Works</Link></li>
+              <li><Link to="/success">Success Stories</Link></li>
             </ul>
           </div>
 
           <div className="footer-column">
             <h4 className="footer-heading">For Sales Pros</h4>
             <ul>
-              <li><Link to="#">Apply as a Pro</Link></li>
-              <li><Link to="#">Browse Projects</Link></li>
-              <li><Link to="#">Agency Partners</Link></li>
-              <li><Link to="#">Pro Resources</Link></li>
+              <li><Link to="/apply">Apply as a Pro</Link></li>
+              <li><Link to="/projects">Browse Projects</Link></li>
+              <li><Link to="/partners">Agency Partners</Link></li>
+              <li><Link to="/resources">Pro Resources</Link></li>
             </ul>
           </div>
 
           <div className="footer-column">
             <h4 className="footer-heading">SalesMarket</h4>
             <ul>
-              <li><Link to="#">About Us</Link></li>
-              <li><Link to="#">Careers</Link></li>
-              <li><Link to="#">Contact</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/careers">Careers</Link></li>
+              <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
         </div>
