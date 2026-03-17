@@ -1,0 +1,230 @@
+.login-page {
+  min-height: calc(100vh - 80px); /* Account for navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-base);
+  padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 50%;
+  height: 70%;
+  background: radial-gradient(circle, var(--color-primary-light) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(60px);
+}
+
+.login-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 1024px) {
+  .login-container {
+    grid-template-columns: 1fr 1fr;
+    max-width: 1000px;
+  }
+}
+
+.login-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.login-brand h2 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 3rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.login-brand span {
+  color: var(--color-primary);
+}
+
+.login-glass {
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 350px;
+}
+
+.login-form-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-xl);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-header h1 {
+  margin-bottom: 0.25rem;
+}
+
+.role-toggle {
+  display: flex;
+  background-color: var(--color-bg-base);
+  border-radius: var(--radius-md);
+  padding: 0.375rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border);
+}
+
+.role-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.role-btn:hover:not(.active) {
+  color: var(--color-text-primary);
+}
+
+.role-btn.active {
+  background-color: var(--color-bg-surface);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #EF4444; /* red 500 */
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.form-input {
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
+  outline: none;
+  width: 100%;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+  background-color: var(--color-bg-surface);
+}
+
+.login-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.forgot-link {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.login-submit-btn {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.login-footer {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.signup-link {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+.login-demo-note {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+@media (max-width: 1023px) {
+  .desktop-only {
+    display: none;
+  }
+}

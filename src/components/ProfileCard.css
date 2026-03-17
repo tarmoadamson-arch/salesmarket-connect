@@ -1,0 +1,119 @@
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.profile-name {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.profile-role {
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.profile-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background-color: var(--color-bg-base);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
+}
+
+.metric {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.metric-icon {
+  margin-top: 0.125rem;
+}
+
+.metric-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-value {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  flex: 1; /* Push actions to bottom */
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.detail-icon {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+@media (max-width: 480px) {
+  .profile-actions {
+    flex-direction: column;
+  }
+}
