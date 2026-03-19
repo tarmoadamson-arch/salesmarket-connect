@@ -21,26 +21,26 @@ const Home = () => {
               The #1 B2B Sales Marketplace
             </div>
             <h1 className="hero-title animate-fade-in delay-100">
-              Hire <span className="text-gradient">Top 1% B2B Sales</span> that actually close.
+              Add <span className="text-gradient">€1M+ pipeline</span> in 90 days — without hiring.
             </h1>
             <p className="hero-subtitle animate-fade-in delay-200">
-              Stop paying for empty activity. Connect with elite, vetted SDRs, AEs, and fractional sales leaders across Europe. Fast-track your SaaS revenue.
+              We match you with proven sales professionals who generate pipeline for you.<br />
+              <span className="font-medium">No hiring risk. No long ramp-up. Just results.</span>
             </p>
             <div className="hero-actions animate-fade-in delay-300">
               <Button variant="primary" size="lg" className="hero-btn" onClick={() => navigate('/marketplace')}>
-                Browse Verified Sales Pros <ArrowRight size={20} />
+                Hire Sales Talent <ArrowRight size={20} />
               </Button>
-              <Button variant="outline" size="lg" className="hero-btn" onClick={() => navigate('/post-project')}>
+              <Button variant="outline" size="lg" className="hero-btn" onClick={() => navigate('/apply')}>
                 I am a Sales Professional
               </Button>
             </div>
-            <div className="hero-trust animate-fade-in delay-300">
-              <div className="trust-item">
-                <ShieldCheck size={18} className="text-success" /> Fully Vetted Talent
-              </div>
-              <div className="trust-item">
-                <Zap size={18} className="text-accent" /> Fast Matching
-              </div>
+            <div className="animate-fade-in delay-300 text-sm text-muted mt-6 flex flex-wrap justify-center gap-3">
+              <span>Fully vetted</span>
+              <span className="opacity-50">•</span>
+              <span>No hiring risk</span>
+              <span className="opacity-50">•</span>
+              <span>Fast onboarding</span>
             </div>
           </div>
           <div className="hero-visual animate-fade-in delay-200">
@@ -64,7 +64,10 @@ const Home = () => {
                   <div className="stat-label">Deals Closed</div>
                 </div>
               </div>
-              <Button variant="primary" className="w-full" onClick={() => setIsBookingModalOpen(true)}>Book Intro Call</Button>
+              <div className="mt-4 flex flex-col gap-2">
+                <Button variant="primary" className="w-full" onClick={() => navigate('/marketplace')}>View Profile</Button>
+                <div className="text-xs text-center text-success font-medium">Available immediately</div>
+              </div>
             </div>
             
             <div className="glass-panel visual-card sub-card delay-300">
@@ -81,14 +84,30 @@ const Home = () => {
       {/* Trust Logo Band */}
       <section className="logo-band-section py-12 border-b border-border/30 bg-surface-base">
         <div className="container text-center">
-           <p className="text-sm font-medium tracking-wider uppercase mb-8 opacity-60 text-muted">Trusted by SaaS teams across Europe</p>
-           <div className="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-40 grayscale">
-             <span className="text-2xl font-bold font-sans">stripe</span>
-             <span className="text-2xl font-bold font-serif">HubSpot</span>
-             <span className="text-2xl font-bold italic">DocuSign</span>
-             <span className="text-2xl font-bold font-mono">Pipedrive</span>
-             <span className="text-2xl font-bold">Intercom</span>
+           <p className="text-sm font-medium tracking-wider uppercase mb-6 opacity-60 text-muted">Trusted by teams at:</p>
+           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 opacity-50 font-medium text-lg md:text-xl text-muted">
+             <span>GuavaHR</span>
+             <span className="text-border">•</span>
+             <span>Baumart</span>
+             <span className="text-border">•</span>
+             <span>4IQ</span>
+             <span className="text-border">•</span>
+             <span>Presentail</span>
            </div>
+        </div>
+      </section>
+
+      {/* For Sales Professionals Callout */}
+      <section className="py-4 bg-surface-glass border-b border-border/30">
+        <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 text-xs md:text-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span className="font-semibold text-foreground uppercase tracking-widest text-[10px] md:text-xs opacity-80">For Sales Professionals</span>
+            <span className="hidden sm:block opacity-30 text-muted">|</span>
+            <span className="text-foreground font-mono bg-surface-base px-2 py-0.5 rounded border border-border/50">Typical engagements: €2k–€10k/month + commission</span>
+          </div>
+          <div className="text-muted text-center sm:text-right max-w-sm sm:max-w-none">
+            Work with real B2B clients across Europe. Flexible, performance-driven engagements.
+          </div>
         </div>
       </section>
 
@@ -123,6 +142,33 @@ const Home = () => {
               </div>
               <h3 className="feature-title">Performance Focused</h3>
               <p className="feature-desc">Filter by actual results—pipeline generated and deals closed—not just hours worked or vague LinkedIn titles.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it Works */}
+      <section className="how-it-works-section py-24">
+        <div className="container">
+          <div className="section-header text-center mb-12">
+            <h2 className="text-h2">How it works</h2>
+            <p className="text-body-lg text-muted mt-2">A streamlined process to get you revenue-ready in days, not months.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <div className="w-12 h-12 rounded-full bg-surface-base border border-border text-primary flex items-center justify-center font-bold text-xl mx-auto mb-4">1</div>
+              <h3 className="text-xl font-semibold mb-2">Tell us your target market</h3>
+              <p className="text-muted">Share your target market, buyer persona, and goals. We handle the rest.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-12 h-12 rounded-full bg-surface-base border border-border text-accent flex items-center justify-center font-bold text-xl mx-auto mb-4">2</div>
+              <h3 className="text-xl font-semibold mb-2">Get matched with vetted sales professionals</h3>
+              <p className="text-muted">Interview 2-3 vetted professionals who perfectly match your requirements.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-12 h-12 rounded-full bg-surface-base border border-border text-success flex items-center justify-center font-bold text-xl mx-auto mb-4">3</div>
+              <h3 className="text-xl font-semibold mb-2">Start generating pipeline in days</h3>
+              <p className="text-muted">Onboard seamlessly and watch your pipeline and closed-won revenue grow.</p>
             </div>
           </div>
         </div>
@@ -172,11 +218,14 @@ const Home = () => {
       <section className="cta-section bg-surface-base border-t border-border">
         <div className="container">
           <Card className="cta-card text-center" glass>
-            <h2 className="text-h2 mb-4">Ready to scale your revenue?</h2>
-            <p className="text-body-lg text-muted mb-8 max-w-2xl mx-auto">
-              Stop sifting through generic freelancers. Connect with vetted B2B sales professionals who know your market.
+            <h2 className="text-h2 mb-4">Don't let competitors out-sell you.</h2>
+            <p className="text-body-lg text-muted mb-6 max-w-2xl mx-auto">
+              Top sales talent is booked fast. Connect with vetted B2B sales professionals today and start scaling your revenue immediately.
             </p>
-            <Button variant="primary" size="lg" onClick={() => navigate('/marketplace')}>Browse Verified Talent</Button>
+            <div className="flex flex-col items-center gap-3">
+              <Button variant="primary" size="lg" onClick={() => navigate('/marketplace')}>Browse Verified Talent</Button>
+              <p className="text-sm font-medium text-accent">🔥 Only 3 top-tier professionals available this week</p>
+            </div>
           </Card>
         </div>
       </section>

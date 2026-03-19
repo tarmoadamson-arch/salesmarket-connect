@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import ProfileCard from '../components/ProfileCard';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 import './Apply.css';
 
 const Apply = () => {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: '',
     role: '',
@@ -27,41 +28,51 @@ const Apply = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear error when user types
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: null });
+    }
   };
 
-  const handleNext = () => setStep(step + 1);
+  const validateStep = (currentStep) => {
+    const newErrors = {};
+    if (currentStep === 1) {
+      if (!formData.name.trim()) newErrors.name = 'Full name is required';
+      if (!formData.role.trim()) newErrors.role = 'Professional title is required';
+      if (!formData.email.trim()) newErrors.email = 'Email address is required';
+    } else if (currentStep === 2) {
+      if (!formData.salesType) newErrors.salesType = 'Primary function is required';
+      if (!formData.markets.trim()) newErrors.markets = 'Markets covered is required';
+      if (!formData.industries.trim()) newErrors.industries = 'Industry focus is required';
+    } else if (currentStep === 3) {
+      if (!formData.pipeline.trim()) newErrors.pipeline = 'Pipeline generated is required';
+      if (!formData.availability) newErrors.availability = 'Engagement model is required';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleNext = () => {
+    if (validateStep(step)) {
+      setStep(step + 1);
+    }
+  };
+
   const handlePrev = () => setStep(step - 1);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call and vetting process
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setStep(4); // Success & Preview State
-    }, 2500);
-  };
-
-  // Convert comma-separated string inputs to arrays for the ProfileCard preview
-  const parseList = (str) => str.split(',').map(s => s.trim()).filter(Boolean);
-
-  // Generate a mock profile object based on form input for the preview
-  const previewProfile = {
-    id: 'preview',
-    name: formData.name || 'Your Name',
-    role: formData.role || 'Your Title',
-    avatar: formData.avatar || 'https://i.pravatar.cc/150?img=11',
-    markets: parseList(formData.markets).length ? parseList(formData.markets) : ['Markets'],
-    industries: parseList(formData.industries).length ? parseList(formData.industries) : ['Industries'],
-    languages: parseList(formData.languages).length ? parseList(formData.languages) : ['ENG'],
-    availability: formData.availability || 'Availability',
-    isVerified: true,
-    top1Percent: false, // Start as standard verified
-    metrics: {
-      pipeline: formData.pipeline || '€0',
-      dealsClosed: formData.dealsClosed || '€0'
-    },
-    about: formData.about || 'Bio preview...'
+    if (isSubmitting) return; // Prevent double submit
+    
+    if (validateStep(3)) {
+      setIsSubmitting(true);
+      // Simulate API call and vetting process
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setStep(4); // Success State
+      }, 2500);
+    }
   };
 
   return (
@@ -89,18 +100,21 @@ const Apply = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">Full Name</label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="form-input" placeholder="e.g. Jane Doe" />
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={`form-input ${errors.name ? 'has-error' : ''}`} placeholder="e.g. Jane Doe" />
+                {errors.name && <span className="error-text">{errors.name}</span>}
               </div>
               <div className="form-group">
                 <label htmlFor="role">Professional Title</label>
-                <input type="text" id="role" name="role" value={formData.role} onChange={handleChange} className="form-input" placeholder="e.g. Senior Enterprise AE" />
+                <input type="text" id="role" name="role" value={formData.role} onChange={handleChange} className={`form-input ${errors.role ? 'has-error' : ''}`} placeholder="e.g. Senior Enterprise AE" />
+                {errors.role && <span className="error-text">{errors.role}</span>}
               </div>
             </div>
             
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="email">Email Address</label>
-                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="form-input" placeholder="jane@example.com" />
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={`form-input ${errors.email ? 'has-error' : ''}`} placeholder="jane@example.com" />
+                {errors.email && <span className="error-text">{errors.email}</span>}
               </div>
               <div className="form-group">
                 <label htmlFor="linkedin">LinkedIn URL</label>
@@ -114,7 +128,7 @@ const Apply = () => {
             </div>
 
             <div className="apply-actions">
-              <Button variant="primary" onClick={handleNext} disabled={!formData.name || !formData.role || !formData.email}>Next Step</Button>
+              <Button variant="primary" onClick={handleNext}>Next Step</Button>
             </div>
           </Card>
         )}
@@ -125,13 +139,14 @@ const Apply = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="salesType">Primary Function</label>
-                <select id="salesType" name="salesType" value={formData.salesType} onChange={handleChange} className="form-input form-select">
+                <select id="salesType" name="salesType" value={formData.salesType} onChange={handleChange} className={`form-input form-select ${errors.salesType ? 'has-error' : ''}`}>
                   <option value="" disabled>Select your core focus...</option>
                   <option value="sdr">Outbound / SDR</option>
                   <option value="ae">Account Executive (Closing)</option>
                   <option value="full">Full-Cycle Sales</option>
                   <option value="leader">Fractional Sales Head</option>
                 </select>
+                {errors.salesType && <span className="error-text">{errors.salesType}</span>}
               </div>
               <div className="form-group">
                 <label htmlFor="experience">Years of B2B Experience</label>
@@ -141,12 +156,14 @@ const Apply = () => {
 
             <div className="form-group">
               <label htmlFor="markets">Markets Covered (Comma separated)</label>
-              <input type="text" id="markets" name="markets" value={formData.markets} onChange={handleChange} className="form-input" placeholder="e.g. Nordics, UK, DACH" />
+              <input type="text" id="markets" name="markets" value={formData.markets} onChange={handleChange} className={`form-input ${errors.markets ? 'has-error' : ''}`} placeholder="e.g. Nordics, UK, DACH" />
+              {errors.markets && <span className="error-text">{errors.markets}</span>}
             </div>
 
             <div className="form-group">
               <label htmlFor="industries">Industry Focus (Comma separated)</label>
-              <input type="text" id="industries" name="industries" value={formData.industries} onChange={handleChange} className="form-input" placeholder="e.g. FinTech, B2B SaaS" />
+              <input type="text" id="industries" name="industries" value={formData.industries} onChange={handleChange} className={`form-input ${errors.industries ? 'has-error' : ''}`} placeholder="e.g. FinTech, B2B SaaS" />
+              {errors.industries && <span className="error-text">{errors.industries}</span>}
             </div>
 
             <div className="form-group">
@@ -156,7 +173,7 @@ const Apply = () => {
 
             <div className="apply-actions-split">
               <Button variant="ghost" onClick={handlePrev}>Back</Button>
-              <Button variant="primary" onClick={handleNext} disabled={!formData.salesType || !formData.markets || !formData.industries}>Next Step</Button>
+              <Button variant="primary" onClick={handleNext}>Next Step</Button>
             </div>
           </Card>
         )}
@@ -168,7 +185,8 @@ const Apply = () => {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="pipeline">Avg. Pipeline Generated (Annual)</label>
-                <input type="text" id="pipeline" name="pipeline" value={formData.pipeline} onChange={handleChange} className="form-input" placeholder="e.g. €2.5M" />
+                <input type="text" id="pipeline" name="pipeline" value={formData.pipeline} onChange={handleChange} className={`form-input ${errors.pipeline ? 'has-error' : ''}`} placeholder="e.g. €2.5M" />
+                {errors.pipeline && <span className="error-text">{errors.pipeline}</span>}
               </div>
               <div className="form-group">
                 <label htmlFor="dealsClosed">Total Deals Closed (Annual)</label>
@@ -178,12 +196,13 @@ const Apply = () => {
 
             <div className="form-group">
               <label htmlFor="availability">Preferred Engagement Model</label>
-              <select id="availability" name="availability" value={formData.availability} onChange={handleChange} className="form-input form-select">
+              <select id="availability" name="availability" value={formData.availability} onChange={handleChange} className={`form-input form-select ${errors.availability ? 'has-error' : ''}`}>
                 <option value="" disabled>Select availability...</option>
                 <option value="Full-time">Full-time Contractor</option>
                 <option value="20hrs / week">Half-time (20hrs/week)</option>
                 <option value="Project-based">Project / Milestone based</option>
               </select>
+              {errors.availability && <span className="error-text">{errors.availability}</span>}
             </div>
 
             <div className="form-group">
@@ -193,7 +212,7 @@ const Apply = () => {
 
             <div className="apply-actions-split">
               <Button variant="ghost" onClick={handlePrev} disabled={isSubmitting}>Back</Button>
-              <Button variant="primary" onClick={handleSubmit} disabled={isSubmitting || !formData.availability || !formData.pipeline}>
+              <Button variant="primary" onClick={handleSubmit} disabled={isSubmitting}>
                 {isSubmitting ? <><Loader2 size={16} className="spinner-icon mr-2" /> Submitting...</> : 'Submit Application'}
               </Button>
             </div>
@@ -203,18 +222,29 @@ const Apply = () => {
         {step === 4 && (
           <div className="apply-success-view animate-fade-in">
              <div className="apply-success-header text-center mb-10">
-               <div className="success-icon-container mx-auto mb-4">
-                 <CheckCircle2 size={40} className="text-success" />
+               <div className="success-icon-container mx-auto mb-6">
+                 <CheckCircle2 size={64} className="text-success" />
                </div>
-               <h2 className="text-h2 mb-2">Application Received!</h2>
-               <p className="text-body-lg text-muted max-w-xl mx-auto">
-                 Our team will review your application within 24 hours. Here is a preview of how your profile card will look to clients in the marketplace once approved.
-               </p>
-             </div>
-
-             <div className="apply-preview-container max-w-sm mx-auto pointer-events-none">
-               <div className="preview-label text-center text-sm font-bold text-primary mb-4 uppercase tracking-wider opacity-60">Profile Preview</div>
-               <ProfileCard profile={previewProfile} />
+               <h2 className="text-h2 mb-4">Thanks, {formData.name ? formData.name : 'there'} — your application has been received</h2>
+               <div className="max-w-xl mx-auto mb-10 flex flex-col gap-2" style={{ marginTop: '32px', color: '#6b7280', fontSize: '14px' }}>
+                 <p>
+                   You're joining a vetted network of top 1% B2B sales professionals in Europe.
+                 </p>
+                 <p>
+                   We review applications daily — faster responses for complete profiles.
+                 </p>
+                 <p style={{ marginTop: '4px' }}>
+                   Want to speed things up? <a href="#" className="font-medium" style={{ color: 'var(--color-primary)', textDecoration: 'none' }} onMouseOver={(e) => e.target.style.textDecoration = 'underline'} onMouseOut={(e) => e.target.style.textDecoration = 'none'}>Connect with us on LinkedIn</a>.
+                 </p>
+               </div>
+               <div className="success-actions flex items-center justify-center gap-4">
+                 <Link to="/projects">
+                   <Button variant="primary">Browse Projects</Button>
+                 </Link>
+                 <Link to="/">
+                   <Button variant="ghost">Return Home</Button>
+                 </Link>
+               </div>
              </div>
           </div>
         )}
